@@ -1,6 +1,7 @@
 " ~/.vimrc
 
 set nocompatible
+
 filetype off
 
 " set the runtime path to include Vundle and initialize
@@ -15,17 +16,8 @@ Plugin 'VundleVim/Vundle.vim'
 " https://github.com/tpope/vim-sensible
 Plugin 'tpope/vim-sensible'
 
-"File Manager
-Plugin 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-
-"PDF Viewer
-Plugin 'rhysd/open-pdf.vim'
-
-"YouCompleteMe
-Plugin 'oblitum/youcompleteme'
-
-"Lightline
-Plugin 'itchyny/lightline.vim'
+" Vim autocomplete while typing
+Bundle 'exvim/ex-autocomplpop'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -35,19 +27,100 @@ filetype plugin indent on    " required
 
 runtime! plugin/sensible.vim
 
-set encoding=utf-8 fileencodings=
+" Color text
 syntax on
+
+" Background color
 set background=dark
+
+" Line numbers
 set number
+
+" Set stop line
 set cc=80
-set mouse=a
-set tabstop=4
+
+" Highlight cursor line underneath the cursor horizontally.
+set cursorline
+hi CursorLine   cterm=none ctermbg=236 ctermfg=NONE
+hi CursorLineNr cterm=none ctermfg=208
+hi LineNr ctermbg=234
+
+" Set shift width to 4 spaces.
 set shiftwidth=4
+
+" Set tab width to 4 columns.
+set tabstop=4
+
+" Enable mouse
+set mouse=a
+
+" Use space characters instead of tabs.
+set expandtab
+
+" Do not save backup files.
+set nobackup
+set noswapfile
+
+" Do not wrap lines. Allow long lines to extend as far as the line goes.
+set nowrap
+
+" While searching though a file incrementally highlight matching characters as you type.
+set incsearch
+
+" Ignore capital letters during search.
+set ignorecase
+
+" Override the ignorecase option if searching for capital letters.
+" This will allow you to search specifically for capital letters.
+set smartcase
+
+" Show partial command you type in the last line of the screen.
+set showcmd
+
+" Show the mode you are on the last line.
+set showmode
+
+" Show matching words during a search.
+set showmatch
+
+" Use highlighting when doing a search.
+set hlsearch
+
+" Set the commands to save in history default number is 20.
+set history=1000
+
+" FINDING FILES
+set path=**
+
+" Enable auto completion menu after pressing TAB.
+set wildmenu
+
+" Make wildmenu behave like similar to Bash completion.
+set wildmode=list:longest
+
+" There are certain files that we would never want to edit with Vim.
+" Wildmenu will ignore files with these extensions.
+set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
+
+":b lets you autocomplete any buffer
+
+" Speed up scrolling in Vim
+set ttyfast
+
+" Highlight matching pairs of brackets. Use the '%' character to jump between them.
+set matchpairs+=<:>
+
+" Display different types of white spaces.
+set list
+set listchars=tab:›\ ,trail:•,extends:#,nbsp:.
+
+set complete+=kspell
+set completeopt=menuone,longest
+
 set softtabstop=4
 set expandtab
 set smartindent
 set autoindent
-set hlsearch
 
 autocmd Filetype make setlocal noexpandtab
 
@@ -68,7 +141,7 @@ map <F5> :tabn 5<CR>
 map <C-S-tab> :tabprevious<CR>
 map <C-tab>   :tabnext<CR>
 map <C-t>     :tabnew<CR>:NERDTree<CR>
-map <C-w>     :tabclose<CR>
+" map <C-w>     :tabclose<CR>
 
 map <C-o> :NERDTreeToggle<CR>
 
@@ -79,9 +152,6 @@ let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
 packadd termdebug
 let g:termdebug_wide=1
 map <C-G>   :termdebug<CR>
-
-" Cursor line
-set cursorline
 
 "au BufNewFile,BufRead *.c call ToggleTerminal('J', 8)
 
@@ -111,3 +181,37 @@ function! ToggleTerminal(side, size) abort
     " open new terminal
     call TermSetup(0, a:side, a:size)
 endfunction
+
+" VIMSCRIPT -------------------------------------------------------------- {{{
+
+" This will enable code folding.
+" Use the marker method of folding.
+augroup filetype_vim
+    autocmd!
+    autocmd FileType vim setlocal foldmethod=marker
+augroup END
+
+" More Vimscripts code goes here.
+
+" }}}
+
+" STATUS LINE ------------------------------------------------------------ {{{
+
+" Clear status line when vimrc is reloaded.
+set statusline=
+
+" Status line left side.
+set statusline+=\ %F\ %M\ %Y\ %R
+
+" Use a divider to separate the left side from the right side.
+set statusline+=%=
+
+" Status line right side.
+set statusline+=\ ascii:\ %b\ row:\ %l\ col:\ %c\ percent:\ %p%%
+
+" Show the status on the second to last line.
+set laststatus=2
+
+" }}}
+
+
