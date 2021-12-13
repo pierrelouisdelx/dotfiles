@@ -1,0 +1,29 @@
+[module/sep]
+type = custom/text
+
+content-background = ${colors.background-alt}
+content-foreground = ${colors.foreground}
+content-overline = ${colors.line}
+content = " | "
+
+[module/decor-glyph]
+type = custom/text
+content-background = ${colors.transparent}
+content-foreground = ${colors.background-alt}
+content-overline = ${colors.line}
+
+[module/left-end-top]
+inherit = module/decor-glyph
+content = "%{T3} %{T-}"
+
+[module/right-end-top]
+inherit = module/decor-glyph
+content = "%{T3}   %{T-}"
+
+[module/left-end-bottom]
+inherit = module/decor-glyph
+content = "%{T3} %{T-}"
+
+[module/right-end-bottom]
+inherit = module/decor-glyph
+content = "%{T3} %{T-}"
