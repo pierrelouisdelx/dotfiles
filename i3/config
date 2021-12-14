@@ -277,7 +277,7 @@ exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
 
 # POLYBAR
-exec_always --no-startup-id killall polybar && polybar main
+exec_always --no-startup-id ~/.config/polybar/run.sh
 
 # LOCK
 bindsym $mod+x exec --no-startup-id blurlock
