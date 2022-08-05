@@ -44,6 +44,11 @@ line = #ffb52a
 
 modules-right = xwindow
 
+; nm-applet config
+tray-position = right
+wm-restack = i3
+override-redirect = true
+
 [bar/main]
 monitor = ${env:MONITOR:HDMI-1}
 width = 100%
