@@ -7,7 +7,7 @@ call plug#begin()
 
 	" Utilities
 	Plug 'sheerun/vim-polyglot'
-	Plug 'jiangmiao/auto-pairs'
+	" Plug 'jiangmiao/auto-pairs'
 	Plug 'ap/vim-css-color'
 	Plug 'preservim/nerdtree'
 	Plug 'kien/ctrlp.vim'
@@ -53,6 +53,8 @@ set softtabstop=4
 set smartindent
 set autoindent
 
+set foldmethod=marker
+
 " True color
 set termguicolors
 
@@ -78,6 +80,9 @@ let g:airline#extensions#tabline#enabled = 1
 " Italics
 let &t_ZH = "\e[3m"
 let &t_ZR = "\e[23m"
+
+" Copilot
+ let g:copilot_node_command = "~/.nvm/versions/node/v17.9.1/bin/node"
 
 " NERD TREE CONFIGURATION
 " Start NERDTree and put the cursor back in the other window.
@@ -112,6 +117,12 @@ let g:nerdtree_tabs_synchronize_view=1
 
 " CTRLP: Ignore based on gitignore
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+
+" Ignore some folders and files for CtrlP indexing
+let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\.git$\|\.yardoc\|node_modules\|log\|tmp$',
+    \ 'file': '\.so$\|\.dat$|\.DS_Store$'
+\ }
 
 " Disable math tex conceal feature
 let g:tex_conceal = ''
@@ -154,3 +165,5 @@ augroup auto_commands
 	autocmd FileType scss setlocal iskeyword+=@-@
 	autocmd BufWritePost *.php silent! call PhpCsFixerFixFile()
 augroup END
+
+autocmd BufEnter NERD_tree_* | execute 'normal R'
