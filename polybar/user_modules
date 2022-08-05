@@ -38,3 +38,8 @@ format-background = ${colors.background-alt}
 format-foreground = ${colors.foreground}
 format-overline = ${colors.line}
 click-left = urxvt -e sudo pacman -Syu
+
+[module/vpn-openvpn-status]
+type = custom/script
+exec = ~/.config/polybar/vpn-openvpn-status.sh
+interval = 5
