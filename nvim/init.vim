@@ -55,6 +55,9 @@ set autoindent
 
 set foldmethod=marker
 
+" Remove break line when too long
+set nowrap
+
 " True color
 set termguicolors
 
