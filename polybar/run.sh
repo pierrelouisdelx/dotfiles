@@ -1,4 +1,17 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
-killall polybar
-polybar main
+# Terminate already running bar instances
+killall -q polybar
+
+# Wait until the processes have been shut down
+while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
+
+# Get Wifi interface
+for dev in `ls /sys/class/net`; do
+    [ -d "/sys/class/net/$dev/wireless" ] && WLAN=$dev
+done
+
+# Launch polybar
+for m in $(polybar --list-monitors | cut -d":" -f1); do
+    MONITOR=$m polybar main --reload &
+done
